@@ -1,0 +1,9 @@
+- name: install etcd
+  yum: name=etcd3
+
+- name: put the config file
+  template: src=etcd.conf dest=/etc/etcd/etcd.conf backup=yes
+  #  notify: restart etcd
+
+- name: start etcd service
+  service: name=etcd state=started enabled=yes
