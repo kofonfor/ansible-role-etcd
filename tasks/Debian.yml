@@ -1,0 +1,9 @@
+- name: install etcd
+  apt: name=etcd
+
+- name: put the config file
+  template: src=etcd dest=/etc/default/etcd backup=yes
+  notify: restart etcd
+
+- name: start etcd service
+  service: name=etcd state=started enabled=yes
