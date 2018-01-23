@@ -1,6 +1,9 @@
 - name: install etcd
   apt: name=etcd
 
+- name: create etcd_data_dir
+  file: state=directory dest={{ etcd_data_dir }} owner=etcd group=etcd mode=0700
+
 - name: put the config file
   template: src=etcd dest=/etc/default/etcd backup=yes
   notify: restart etcd

@@ -13,7 +13,7 @@ ETCD_NAME="{{ etcd_name }}"
 
 ##### -data-dir
 ## Path to the data directory.
-# ETCD_DATA_DIR="/var/lib/etcd/default"
+ETCD_DATA_DIR="{{ etcd_data_dir }}"
 
 ##### -wal-dir
 ## Path to the dedicated wal directory. If this flag is set, etcd will write the

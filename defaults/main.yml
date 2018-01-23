@@ -2,3 +2,4 @@ etcd_cluster_group_name: etcd
 use_distro_packaging: yes
 etcd_binary_version: 3.2.13
 etcd_user: etcd
+etcd_data_dir: /var/lib/etcd/default
