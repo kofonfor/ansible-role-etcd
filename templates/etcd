@@ -49,7 +49,7 @@ ETCD_DATA_DIR="{{ etcd_data_dir }}"
 ## example: "http://10.0.0.1:2380"
 ## invalid example: "http://example.com:2380" (domain name is invalid for binding)
 ## default: "http://localhost:2380,http://localhost:7001"
-ETCD_LISTEN_PEER_URLS="http://{% if (etcd_iface is defined) %}{{ hostvars[ansible_hostname][('ansible_' + etcd_iface)]['ipv4']['address'] }}{% else %}{{ ansible_default_ipv4.address }}{% endif %}:2380"
+ETCD_LISTEN_PEER_URLS="http://{% if (etcd_iface is defined) %}{{ hostvars[inventory_hostname][('ansible_' + etcd_iface)]['ipv4']['address'] }}{% else %}{{ ansible_default_ipv4.address }}{% endif %}:{{ etcd_peer_port }}"
 
 ##### -listen-client-urls
 ## List of URLs to listen on for client traffic. This flag tells the etcd to accept
@@ -63,7 +63,7 @@ ETCD_LISTEN_PEER_URLS="http://{% if (etcd_iface is defined) %}{{ hostvars[ansibl
 ## example: "http://10.0.0.1:2379"
 ## invalid example: "http://example.com:2379" (domain name is invalid for binding)
 ## default: "http://localhost:2379,http://localhost:4001"
-ETCD_LISTEN_CLIENT_URLS="http://{% if (etcd_iface is defined) %}{{ hostvars[ansible_hostname][('ansible_' + etcd_iface)]['ipv4']['address'] }}{% else %}{{ ansible_default_ipv4.address }}{% endif %}:2379"
+ETCD_LISTEN_CLIENT_URLS="http://{% if (etcd_iface is defined) %}{{ hostvars[inventory_hostname][('ansible_' + etcd_iface)]['ipv4']['address'] }}{% else %}{{ ansible_default_ipv4.address }}{% endif %}:{{ etcd_client_port }}"
 
 ##### -max-snapshots
 ## Maximum number of snapshot files to retain (0 is unlimited)
@@ -95,14 +95,14 @@ ETCD_LISTEN_CLIENT_URLS="http://{% if (etcd_iface is defined) %}{{ hostvars[ansi
 ## These URLs can contain domain names.
 ## example: "http://example.com:2380, http://10.0.0.1:2380"
 ## default: "http://localhost:2380,http://localhost:7001"
-ETCD_INITIAL_ADVERTISE_PEER_URLS="http://{% if (etcd_iface is defined) %}{{ hostvars[ansible_hostname][('ansible_' + etcd_iface)]['ipv4']['address'] }}{% else %}{{ ansible_default_ipv4.address }}{% endif %}:2380"
+ETCD_INITIAL_ADVERTISE_PEER_URLS="http://{% if (etcd_iface is defined) %}{{ hostvars[inventory_hostname][('ansible_' + etcd_iface)]['ipv4']['address'] }}{% else %}{{ ansible_default_ipv4.address }}{% endif %}:{{ etcd_peer_port }}"
 
 ##### -initial-cluster
 ## initial cluster configuration for bootstrapping.
 ## The key is the value of the `-name` flag for each node provided.
 ## The default uses `default` for the key because this is the default for the `-name` flag.
 ## default: "default=http://localhost:2380,default=http://localhost:7001"
-ETCD_INITIAL_CLUSTER="{% for host in groups[etcd_cluster_group_name] %}{{ hostvars[host]['etcd_name'] }}=http://{% if (etcd_iface is defined) %}{{ hostvars[host][('ansible_' + etcd_iface)]['ipv4']['address'] }}{% else %}{{ hostvars[host]['ansible_default_ipv4']['address'] }}{% endif %}:2380,{% endfor %}"
+ETCD_INITIAL_CLUSTER="{% for host in groups[etcd_cluster_group_name] %}{{ hostvars[host]['etcd_name'] }}=http://{% if (etcd_iface is defined) %}{{ hostvars[host][('ansible_' + etcd_iface)]['ipv4']['address'] }}{% else %}{{ hostvars[host]['ansible_default_ipv4']['address'] }}{% endif %}:{{ etcd_peer_port }},{% endfor %}"
 
 ##### -initial-cluster-state
 ## Initial cluster state ("new" or "existing"). Set to `new` for all members
@@ -130,7 +130,7 @@ ETCD_INITIAL_CLUSTER_STATE="new"
 ## because the proxy will be forwarding requests to itself until its resources
 ## (memory, file descriptors) are eventually depleted.
 ## default: "http://localhost:2379,http://localhost:4001"
-ETCD_ADVERTISE_CLIENT_URLS="http://{% if (etcd_iface is defined) %}{{ hostvars[ansible_hostname][('ansible_' + etcd_iface)]['ipv4']['address'] }}{% else %}{{ ansible_default_ipv4.address }}{% endif %}:2379"
+ETCD_ADVERTISE_CLIENT_URLS="http://{% if (etcd_iface is defined) %}{{ hostvars[inventory_hostname][('ansible_' + etcd_iface)]['ipv4']['address'] }}{% else %}{{ ansible_default_ipv4.address }}{% endif %}:{{ etcd_client_port }}"
 
 ##### -discovery
 ## Discovery URL used to bootstrap the cluster.
