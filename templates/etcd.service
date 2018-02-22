@@ -7,7 +7,7 @@ Wants=network-online.target
 [Service]
 Environment=DAEMON_ARGS=
 Environment=ETCD_NAME=%H
-Environment=ETCD_DATA_DIR=/var/lib/etcd/default
+Environment=ETCD_DATA_DIR={{ etcd_data_dir }}
 EnvironmentFile=-/etc/default/etcd
 Type=notify
 User={{ etcd_user }}

@@ -15,8 +15,8 @@
 - name: create a user
   user: name={{ etcd_user }}
 
-- name: create /var/lib/etcd/
-  file: owner={{ etcd_user }} dest=/var/lib/etcd state=directory
+- name: create "{{ etcd_data_dir }}"
+  file: owner={{ etcd_user }} dest="{{ etcd_data_dir }}" state=directory
 
 - name: put a service descriptor
   template: src=etcd.service dest=/etc/systemd/system/etcd-{{ etcd_binary_version }}.service owner=root group=root mode=0644
