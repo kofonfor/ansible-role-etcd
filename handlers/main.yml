@@ -3,3 +3,6 @@
 
 - name: restart etcd
   service: name=etcd state=restarted
+
+- name: restart etcd-{{ etcd_binary_version }}
+  service: name=etcd-{{ etcd_binary_version }} state=restarted
