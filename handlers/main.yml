@@ -1,5 +1,5 @@
-- name: systemctl daemon-reload
-  shell: systemctl daemon-reload
+- name: daemon-reload
+  systemd: daemon_reload=yes
 
 - name: restart etcd
   service: name=etcd state=restarted
