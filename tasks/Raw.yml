@@ -7,7 +7,9 @@
   notify: restart etcd-{{ etcd_binary_version }}
 
 - name: get etcd in binary form
-  get_url: url=https://github.com/coreos/etcd/releases/download/v{{ etcd_binary_version }}/etcd-v{{ etcd_binary_version }}-linux-amd64.tar.gz dest=/root/etcd-v{{ etcd_binary_version }}-linux-amd64.tar.gz
+  get_url:
+    url: https://github.com/coreos/etcd/releases/download/v{{ etcd_binary_version }}/etcd-v{{ etcd_binary_version }}-linux-amd64.tar.gz
+    dest: /root/etcd-v{{ etcd_binary_version }}-linux-amd64.tar.gz
 
 - name: unpack binary etcd
   unarchive: copy=no src="/root/etcd-v{{ etcd_binary_version }}-linux-amd64.tar.gz" dest=/opt
