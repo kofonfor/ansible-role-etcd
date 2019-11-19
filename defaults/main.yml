@@ -1,6 +1,6 @@
 etcd_cluster_group_name: etcd
 use_distro_packaging: yes
-etcd_binary_version: 3.4.3
+etcd_binary_version: 3.3.17
 etcd_user: etcd
 etcd_data_dir: /var/lib/etcd/default
 etcd_peer_port: 2380
